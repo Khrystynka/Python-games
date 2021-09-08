@@ -16,10 +16,19 @@ game_on = True
 screen.update()
 
 screen.listen()
+
+
+def game_over():
+    global game_on
+    score.game_over()
+    game_on = False
+
+
 screen.onkey(snake.up, 'Up')
 screen.onkey(snake.down, 'Down')
 screen.onkey(snake.right, 'Right')
 screen.onkey(snake.left, 'Left')
+screen.onkey(game_over, 'q')
 
 
 while game_on:
@@ -32,13 +41,13 @@ while game_on:
         snake.expand_snake()
         score.update_score()
     if snake.head.xcor() > 280 or snake.head.xcor() < -280 or snake.head.ycor() > 280 or snake.head.ycor() < -280:
-        game_on = False
-        score.game_over()
+        score.reset()
+        snake.reset()
 
     for i in range(1, len(snake.snake)):
         if snake.head.distance(snake.snake[i]) < 10:
-            game_on = False
-            score.game_over()
+            score.reset()
+            snake.reset()
 
 
 screen.exitonclick()
