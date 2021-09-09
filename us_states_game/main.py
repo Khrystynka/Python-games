@@ -17,11 +17,9 @@ mapper = mapper.Mapper()
 while game_on:
     user_guess = screen.textinput(
         title=f"{correct_answers}/50 Correct answers", prompt="Please type your next guess: ").title()
-    print(user_guess)
     if user_guess == "Exit":
-        for state in mapper.STATES_COORD:
-            if state not in guessed:
-                not_guessed.append(state)
+        not_guessed = [
+            state for state in mapper.STATES_COORD if state not in guessed]
         data = DataFrame(not_guessed)
         data.to_csv('us_states_game/states_to_learn')
         break
